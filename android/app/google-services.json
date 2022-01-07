@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1007097194578",
+    "project_id": "ameen-khanasabkliye",
+    "storage_bucket": "ameen-khanasabkliye.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007097194578:android:a6ad13d6fcd9a0fc83978b",
+        "android_client_info": {
+          "package_name": "com.mobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007097194578-6ii2vsm1fmdgqeojvu9v43mrqlh53u2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpgr-soLOIJsAmqPrlrTDSymUDxysrfmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007097194578-6ii2vsm1fmdgqeojvu9v43mrqlh53u2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
