@@ -55,18 +55,25 @@ export const Example = () => {
                                 setLoading(false)
                                 authCtx.setToogle(true)
                                 authCtx.setCheckManager(true);
-                            } else {
+
+                                setEmail('');
+                                setPass('');
+                            } else if (documentSnapshot.data().type === "user") {
+                                setLoading(false)
                                 authCtx.setCheckManager(false);
                                 authCtx.setToogle(true)
+
+                                setEmail('');
+                                setPass('');
+                            } else {
+                                setLoading(false)
+                                authCtx.setCheckManager(false);
+                                authCtx.setToogle(false)
+                                ShowAlert("Invalid", "No user Found");
                             }
 
                         });
-                    setEmail('');
-                    setPass('');
                     console.log('User found');
-
-
-
                 } else {
                     authCtx.setToogle(false)
                     setLoading(false)

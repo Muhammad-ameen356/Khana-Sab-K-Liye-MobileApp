@@ -8,6 +8,7 @@ const AuthContext = createContext({
     setToogle: () => { },
     setCheckManager: () => { },
     userID: 0,
+    userData: {},
     logout: () => { },
     // onLogin: () => { },
     // onLogout: () => { },

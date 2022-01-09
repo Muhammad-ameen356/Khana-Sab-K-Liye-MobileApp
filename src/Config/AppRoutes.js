@@ -11,8 +11,9 @@ const AppRoutes = () => {
     const [toogle, setToogle] = useState(false);
     const [checkDoc, setCheckDoc] = useState(false);
     const [checkQR, setCheckQR] = useState(false);
-    const [checkManager, setCheckManager] = useState(false)
+    const [checkManager, setCheckManager] = useState(false);
 
+    const [userData, setUserData] = useState({});
     const [userID, setUserId] = useState(0);
 
     const logout = () => {
@@ -41,10 +42,14 @@ const AppRoutes = () => {
                             if (documentSnapshot.data().type === "manager") {
                                 setCheckManager(true);
                                 setToogle(true);
-                            } else {
+                            } else if (documentSnapshot.data().type === "user") {
                                 setCheckManager(false);
                                 setToogle(true);
                                 authStatusAnddataCheck(uid);
+                            } else {
+                                setCheckManager(false);
+                                setToogle(false);
+                                // ShowAlert("Invalid", "No user Found");
                             }
                         });
 
@@ -66,6 +71,7 @@ const AppRoutes = () => {
                     if (doc.data() !== undefined) {
                         console.log("Document Found");
                         setCheckDoc(true)
+                        setUserData(doc.data())
 
                         if (doc.data().active_status === ACTION.APPROVED) {
                             setCheckQR(true);
@@ -92,6 +98,7 @@ const AppRoutes = () => {
             setToogle: setToogle,
             setCheckManager: setCheckManager,
             userID: userID,
+            userData: userData,
             logout: logout,
         }}>
             <AuthHandler userID={userID} />

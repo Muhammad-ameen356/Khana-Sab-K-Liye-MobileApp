@@ -11,7 +11,10 @@ import MapsandDistance from '../Screens/UserForm/MapsandDistance.js';
 import UserForm from '../Screens/UserForm/UserForm.js';
 import AfterSubmit from '../Screens/UserForm/AfterSubmit'
 import QRPage from '../Screens/QRPage/QRPage';
+import ShowDeatils from '../Screens/QRPage/ShowDeatils';
 import ManagerHome from '../Screens/MsnsgerPages/ManagerHome';
+import ScanQr from '../Screens/MsnsgerPages/ScanQr';
+import SearchById from '../Screens/MsnsgerPages/SearchById';
 
 import { bgMaincolor, maincolor } from '../assests/styles/style';
 
@@ -86,7 +89,7 @@ const IfDocFind = () => {
             <Stack.Navigator>
                 <Stack.Screen options={{ headerShown: false, }} name="splashScreen" component={splashScreen1} />
                 <Stack.Screen name="Status" component={AfterSubmit} options={{
-                    title: 'Application Status',
+                    title: 'Pending Approval',
                     headerStyle: {
                         backgroundColor: maincolor,
                         height: 60,
@@ -104,6 +107,18 @@ const IfDocFind = () => {
                         />
                     ),
                 }} />
+                <Stack.Screen name="showdetails" component={ShowDeatils} options={{
+                    title: 'Applicant Details',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
+                }} />
                 {/* <Text>Logout</Text> */}
             </Stack.Navigator>
         </NavigationContainer>
@@ -118,7 +133,7 @@ const IfDocAccepted = () => {
             <Stack.Navigator>
                 <Stack.Screen options={{ headerShown: false, }} name="splashScreen" component={splashScreen1} />
                 <Stack.Screen name="QRPage" component={QRPage} options={{
-                    title: 'QRPage',
+                    title: 'Accepted',
                     headerStyle: {
                         backgroundColor: maincolor,
                         height: 60,
@@ -135,6 +150,18 @@ const IfDocAccepted = () => {
                             color={maincolor}
                         />
                     ),
+                }} />
+                <Stack.Screen name="showdetails" component={ShowDeatils} options={{
+                    title: 'Applicant Details',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
                 }} />
             </Stack.Navigator>
         </NavigationContainer>
@@ -167,6 +194,30 @@ const IfManager = () => {
                             color={maincolor}
                         />
                     ),
+                }} />
+                <Stack.Screen name="ScanQr" component={ScanQr} options={{
+                    title: 'Scan',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
+                }} />
+                <Stack.Screen name="SearchById" component={SearchById} options={{
+                    title: 'Search Application',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
                 }} />
             </Stack.Navigator>
         </NavigationContainer>
