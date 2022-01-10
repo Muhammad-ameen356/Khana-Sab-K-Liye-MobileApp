@@ -8,7 +8,6 @@ import {
     Center,
     HStack,
     Stack,
-    NativeBaseProvider,
 } from "native-base"
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import AuthContext from "../../AuthContext/AuthContext";
