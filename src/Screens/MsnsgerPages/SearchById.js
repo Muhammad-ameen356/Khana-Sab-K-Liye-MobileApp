@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Text, StyleSheet, SafeAreaView, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
 import {
     PresenceTransition,
+    useToast,
 } from "native-base"
 import AuthContext from "../../AuthContext/AuthContext";
 import { bgMaincolor, maincolor } from "../../assests/styles/style";
@@ -13,6 +14,8 @@ const SearchById = () => {
     const authCtx = useContext(AuthContext);
     const [searchVal, setSearchVal] = useState('');
     const [data, setData] = useState('');
+    const toast = useToast();
+
 
     const searchData = () => {
         if (searchVal.length < 5) {
@@ -26,6 +29,11 @@ const SearchById = () => {
                         setData(doc.data())
                     } else {
                         console.log("No data");
+                        setData('')
+                        toast.show({
+                            description: "No Any Data Found with this ID",
+                            duration: 2300,
+                        })
                     }
                 });
         }

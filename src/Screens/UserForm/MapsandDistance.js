@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text, Image } from "react-native";
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { Marker } from 'react-native-maps';
@@ -12,12 +12,12 @@ import { useNavigation } from '@react-navigation/native';
 const MapsandDistance = () => {
     const navigation = useNavigation();
     const [text, onChangeText] = useState("Useless Text");
-    const [number, onChangeNumber] = useState(null);
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
+    const [number, onChangeNumber] = useState(0);
+    const [latitude, setLatitude] = useState(24.9532929);
+    const [longitude, setLongitude] = useState(66.9990128);
     const [refresh, setRefresh] = useState(false);
     const [totalDistance, setTotaldistance] = useState([]);
-    const [nearestbranchIndex, setNearestIndex] = useState(null)
+    const [nearestbranchIndex, setNearestIndex] = useState(0)
 
     useEffect(() => {
         Geolocation.getCurrentPosition(info => {
@@ -25,24 +25,29 @@ const MapsandDistance = () => {
             setLatitude(lati)
             setLongitude(info.coords.longitude)
         });
-        // distance(latitude, longitude)
-    }, [latitude, longitude])
-    // console.log("Current", latitude, longitude);
+        console.log(latitude, longitude);
+    }, [refresh])
 
     // //* This is for enable popup for Enable location
 
-    useEffect(() => {
+    const locationPopUp = () => {
         RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
             interval: 10000,
             fastInterval: 5000,
         }).then((data) => {
-            console.log(data);
+            console.log(data, "data");
             setRefresh(true)
         }).catch((err) => {
-            console.log(err);
+            console.log(err, "error");
             setRefresh(false)
         });
+    }
+
+    useEffect(() => {
+        locationPopUp()
     }, [refresh]);
+
+
 
     // https://www.geeksforgeeks.org/program-distance-two-points-earth/
 
@@ -91,7 +96,7 @@ const MapsandDistance = () => {
             setTimeout(() => {
                 navigation.navigate('UserForm', {
                     nearestIndex: indexFind,
-                    otherParam: {userLat: latitude, userLon: longitude},
+                    otherParam: { userLat: latitude, userLon: longitude },
                 });
             }, 500);
         }
@@ -128,10 +133,11 @@ const MapsandDistance = () => {
                         }}>
                         <Marker
                             coordinate={{ latitude: latitude, longitude: longitude }}
-                            image={{ uri: 'custom_pin' }}
+                            // image={{ uri: 'custom_pin' }}
                             title="Current Location"
                             opacity={1}
-                        />
+                        >
+                        </Marker>
                         {allFoodBanks.map((address, index) => {
                             return <Marker
                                 key={index}
@@ -139,18 +145,25 @@ const MapsandDistance = () => {
                                 image={require('../../assests/images/greenmarker.png')}
                                 title={address.branch_name}
                                 opacity={1}
-                            />
+                            >
+                                {/* <Image source={require('../../assests/images/greenmarker.png')} style={{ height: 40, width: 25 }} /> */}
+                            </Marker>
                         })
                         }
                     </MapView>
                     :
-                    <TouchableOpacity style={styles.button} onPress={() => distance(latitude, longitude)}>
+                    <TouchableOpacity style={styles.button} onPress={() => locationPopUp()}>
                         <Text style={styles.buttonText}>Need To Access Location</Text>
                     </TouchableOpacity>
                 }
-                <TouchableOpacity style={styles.button} onPress={() => distance(latitude, longitude)}>
-                    <Text style={styles.buttonText}>Continue to Fill Form</Text>
-                </TouchableOpacity>
+                {refresh
+                    ?
+                    <TouchableOpacity style={styles.button} onPress={() => distance(latitude, longitude)}>
+                        <Text style={styles.buttonText}>Continue to Fill Form</Text>
+                    </TouchableOpacity>
+                    :
+                    null
+                }
             </View>
         </SafeAreaView>
     );

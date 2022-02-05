@@ -46,11 +46,31 @@ function splashScreen1({ navigation }) {
 
 
 const IfLog = () => {
+    const authCtx = useContext(AuthContext);
+
     return (
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen options={{ headerShown: false, }} name="splashScreen" component={splashScreen1} />
-                <Stack.Screen name="MapsandDistance" component={MapsandDistance} options={{ headerShown: false }} />
+                <Stack.Screen name="MapsandDistance" component={MapsandDistance} options={{
+                    title: 'KHANA SAB K LIYE',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
+                    headerRight: () => (
+                        <Button
+                            onPress={authCtx.logout}
+                            title="Logout"
+                            color={maincolor}
+                        />
+                    ),
+                }} />
                 <Stack.Screen name="UserForm" component={UserForm} options={{
                     title: 'Application Form',
                     headerStyle: {

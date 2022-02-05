@@ -417,7 +417,7 @@ const UserForm = ({ route }) => {
                     </View>
 
                     {loading &&
-                        <Progress colorScheme="green" bg="green.200" mb="4" value={loadingVal} mx="4" />
+                        <Progress mt="5" colorScheme="green" bg="green.200" mb="4" value={loadingVal} mx="4" />
                     }
                     <View style={styles.buttonView}>
                         {loading ?
@@ -426,15 +426,15 @@ const UserForm = ({ route }) => {
                             </View>
 
                             :
-                            <TouchableOpacity style={styles.button} onPress={onFormSubmit}>
+                            <TouchableOpacity style={styles.button} onPress={onFormSubmit} >
                                 <Text style={{ color: "white", fontSize: 17, }}>Submit Request</Text>
                             </TouchableOpacity>
 
                         }
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={logout}>
+                    {/* <TouchableOpacity style={styles.button} onPress={logout}>
                         <Text style={{ color: "white", fontSize: 17, }}>LogOUT</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -481,6 +481,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: 220,
         borderRadius: 4,
+        marginTop: 20,
     },
 });
 
