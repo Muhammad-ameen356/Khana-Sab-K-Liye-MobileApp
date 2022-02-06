@@ -28,6 +28,7 @@ export const Example = () => {
     const [show, setShow] = useState(false);
     const navigation = useNavigation();
 
+
     const navigateScreen = () => {
         navigation.navigate('Signup');
     };
@@ -133,6 +134,7 @@ export const Example = () => {
             {/* <Text>Dont Have An Account</Text> */}
             <TouchableOpacity onPress={navigateScreen}>
                 <Text style={styles.createAcc}>Create Account</Text>
+                
             </TouchableOpacity>
         </Stack>
     )

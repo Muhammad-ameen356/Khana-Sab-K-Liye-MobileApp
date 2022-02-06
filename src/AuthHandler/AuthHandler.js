@@ -15,8 +15,11 @@ import ShowDeatils from '../Screens/QRPage/ShowDeatils';
 import ManagerHome from '../Screens/MsnsgerPages/ManagerHome';
 import ScanQr from '../Screens/MsnsgerPages/ScanQr';
 import SearchById from '../Screens/MsnsgerPages/SearchById';
+import NoInternet from '../Screens/NoInternet/NoInternet';
 
 import { bgMaincolor, maincolor } from '../assests/styles/style';
+import { useNetInfo } from "@react-native-community/netinfo";
+
 
 
 
@@ -246,11 +249,48 @@ const IfManager = () => {
 
 
 
+const IfNoInternet = () => {
+    const authCtx = useContext(AuthContext);
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Nointernet" component={NoInternet} options={{
+                    title: 'Khana Sab K Liye',
+                    headerStyle: {
+                        backgroundColor: maincolor,
+                        height: 60,
+                    },
+                    headerTintColor: bgMaincolor,
+                    headerTitleStyle: {
+                        fontSize: 22,
+                        textTransform: "uppercase"
+                    },
+                    // headerRight: () => (
+                    //     <Button
+                    //         onPress={authCtx.logout}
+                    //         title="Logout"
+                    //         color={maincolor}
+                    //     />
+                    // ),
+                }} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}
+
+
+
+
 
 const AuthHandler = () => {
     const authCtx = useContext(AuthContext);
+    const netInfo = useNetInfo();
+    {/* <Text>Type: {netInfo.type}</Text>
+                <Text>Is Connected? {netInfo.isConnected.toString()}</Text> */}
     // return authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)
-    return authCtx.isLoggedIn && authCtx.checkManager ? <IfManager /> : authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)
+    return netInfo.isConnected ? (authCtx.isLoggedIn && authCtx.checkManager ? <IfManager /> : authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)) : <IfNoInternet />
+
 }
 
 
