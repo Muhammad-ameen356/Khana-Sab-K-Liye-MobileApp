@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Center,
@@ -7,13 +7,11 @@ import {
 } from "native-base";
 import { StyleSheet, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import { maincolor, bgMaincolor } from '../../assests/styles/style'
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import ShowAlert from '../../Components/ShowAlert';
-import AuthContext from '../../AuthContext/AuthContext';
 
 
 
@@ -25,7 +23,6 @@ const showAlert = (err) => {
         [
             {
                 text: "Cancel",
-                // onPress: () => Alert.alert("Cancel Pressed"),
                 style: "cancel",
             },
         ],
@@ -34,8 +31,6 @@ const showAlert = (err) => {
 
 
 export const Example = () => {
-    const ctx = useContext(AuthContext)
-
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loading, setLoading] = useState(false);
@@ -49,7 +44,6 @@ export const Example = () => {
 
 
     const handleClick = () => {
-        const date = new Date().getTime().toString()
         setLoading(true)
         if (email.length === 0 || email.indexOf("@") === -1) {
             setLoading(false)
@@ -108,7 +102,6 @@ export const Example = () => {
 
     return (
         <Stack space={5} w="100%" alignItems="center">
-            {/* <Icon name="rocket" size={30} color="#900" />; */}
             <Input w={{ base: "75%", md: "25%", }}
                 InputLeftElement={
                     <Icon style={[styles.forPad]} name="user" size={20} color={maincolor} />}
@@ -152,8 +145,6 @@ const Login = () => {
     return (
         <ScrollView style={[styles.main]}>
             <Center flex={1} px="1" mt="10" >
-                {/* <Heading color={maincolor}>KHANA </Heading>
-                SAB K LYE */}
                 <Image style={{ width: 200, height: 200 }} source={require('../../assests/images/logo.png')} />
                 <Example />
             </Center>

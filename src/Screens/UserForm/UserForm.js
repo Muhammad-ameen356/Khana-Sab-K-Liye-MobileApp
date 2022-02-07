@@ -2,15 +2,14 @@ import React, { useEffect, useState, useContext } from 'react'
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Text, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import DropDownPicker from 'react-native-dropdown-picker';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import allFoodBanks from '../../foodBanks';
 import { maincolor, bgMaincolor } from '../../assests/styles/style';
 import ShowAlert from '../../Components/ShowAlert';
 import AuthContext from '../../AuthContext/AuthContext';
 import { Progress } from "native-base";
-import ACTION from '../../Config/Action';
 
 
 const UserForm = ({ route }) => {
@@ -99,7 +98,6 @@ const UserForm = ({ route }) => {
 
     const dataSubmit = () => {
         console.log(imgUrl1, imgUrl2, imgUrl3);
-        // ${ctx.userID}
         const usersCollection = firestore().collection('Forms').doc(`${ctx.userID}`);
         usersCollection.set({
             nearestBranch: calculatedbranchName,
@@ -432,9 +430,6 @@ const UserForm = ({ route }) => {
 
                         }
                     </View>
-                    {/* <TouchableOpacity style={styles.button} onPress={logout}>
-                        <Text style={{ color: "white", fontSize: 17, }}>LogOUT</Text>
-                    </TouchableOpacity> */}
                 </View>
             </ScrollView>
         </SafeAreaView>

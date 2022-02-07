@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, Button, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, SafeAreaView, ScrollView } from 'react-native';
 import AuthContext from '../../AuthContext/AuthContext'
 import firestore from '@react-native-firebase/firestore';
 import { maincolor, bgMaincolor } from '../../assests/styles/style'
@@ -26,10 +26,6 @@ const AfterSubmit = () => {
     }, [authCtx])
 
     const navigationScreen = () => {
-        // navigation.navigate('showdetails', {
-        //     nearestIndex: indexFind,
-        //     otherParam: {userLat: latitude, userLon: longitude},
-        // });
         navigation.navigate('showdetails');
     }
     return (

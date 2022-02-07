@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import {
     Box,
     Heading,
@@ -11,12 +11,9 @@ import {
 } from "native-base"
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import AuthContext from "../../AuthContext/AuthContext";
-import { maincolor } from "../../assests/styles/style";
 
 const ShowDeatils = () => {
     const authCtx = useContext(AuthContext)
-
-    // console.log("QR page", authCtx.userData);
 
     const data = authCtx.userData
 
@@ -51,12 +48,13 @@ const ShowDeatils = () => {
                         }}
                     >
                         <Box>
-                            <AspectRatio w="100%" ratio={16 / 12}>
+                            <AspectRatio w="100%">
                                 <Image
                                     source={{
                                         uri: `${data.personImg}`,
                                     }}
                                     alt="image"
+                                    resizeMode={"contain"}
                                 />
                             </AspectRatio>
                             <Center
@@ -110,25 +108,14 @@ const ShowDeatils = () => {
                                 <Text fontWeight="700"> Date of Expiry: </Text> <Text>Dummy number</Text>
                             </Text>
                             <Text>
-                                <Text fontWeight="700"> Status: </Text> <Text>{data.active_status}</Text>
+                                <Text fontWeight="700"> Branch Name: </Text> <Text>{data.nearestBranch}</Text>
                             </Text>
-                            {/* <Heading size="md" ml="-1">
-                                <Text>Food Bank Branch Name</Text>
-                            </Heading> */}
-                            <HStack alignItems="center" space={4} justifyContent="space-between">
-                                <HStack alignItems="center">
-                                    <Text
-                                        color="coolGray.600"
-                                        _dark={{
-                                            color: "warmGray.200",
-                                        }}
-                                        fontWeight="400"
-                                        fontSize="sm"
-                                    >
-                                        {data.nearestBranch} Branch
-                                    </Text>
-                                </HStack>
-                            </HStack>
+                            <Text>
+                                <Text fontWeight="700"> Status: </Text> <Text textTransform="uppercase">{data.active_status}</Text>
+                            </Text>
+                            <Text>
+                                <Text fontWeight="700"> ID: </Text> <Text>{data.user_uid}</Text>
+                            </Text>
                         </Stack>
                     </Box>
                 </Center>
@@ -147,6 +134,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: "row",
+        marginTop: 20,
+        marginBottom: 20,
     }
 })
 

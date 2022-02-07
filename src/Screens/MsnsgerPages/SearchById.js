@@ -1,32 +1,33 @@
-import React, { useState, useContext } from "react";
-import { Text, StyleSheet, SafeAreaView, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Text, StyleSheet, SafeAreaView, ScrollView, View, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import {
     PresenceTransition,
     useToast,
 } from "native-base"
-import AuthContext from "../../AuthContext/AuthContext";
 import { bgMaincolor, maincolor } from "../../assests/styles/style";
 import firestore from '@react-native-firebase/firestore';
 import ShowAlert from '../../Components/ShowAlert';
 import UserIdDetail from "./UserIdDetail";
 
 const SearchById = () => {
-    const authCtx = useContext(AuthContext);
     const [searchVal, setSearchVal] = useState('');
     const [data, setData] = useState('');
+    const [loading, setLoading] = useState(false)
     const toast = useToast();
 
 
     const searchData = () => {
-        if (searchVal.length < 5) {
+        if (searchVal.length < 20) {
             ShowAlert("Invalid", "Invalid User Id")
         } else {
+            setLoading(true)
             const subscriber = firestore().collection('Forms').doc(searchVal)
                 .onSnapshot(doc => {
                     console.log('User data: ', doc.data());
                     if (doc.data() !== undefined) {
                         console.log("Mil gya");
                         setData(doc.data())
+                        setLoading(false)
                     } else {
                         console.log("No data");
                         setData('')
@@ -34,6 +35,7 @@ const SearchById = () => {
                             description: "No Any Data Found with this ID",
                             duration: 2300,
                         })
+                        setLoading(false)
                     }
                 });
         }
@@ -58,16 +60,6 @@ const SearchById = () => {
                             keyboardType="default"
                         />
                         <View style={styles.Button}>
-                            {/* <Button
-                                title="Search"
-                                color={maincolor}
-                                onPress={searchData}
-                            />
-                            <Button
-                                title="Clear"
-                                color={maincolor}
-                                onPress={clearData}
-                            /> */}
                             <View style={styles.buttonsContainer}>
                                 <TouchableOpacity style={styles.button1} onPress={searchData}>
                                     <Text style={styles.buttonText}>Search</Text>
@@ -76,8 +68,6 @@ const SearchById = () => {
                                 <TouchableOpacity style={styles.button2} onPress={clearData}>
                                     <Text style={styles.buttonText}>Clear All</Text>
                                 </TouchableOpacity>
-                                {/* <Button style={styles.button1} onPress={copyToClipboard} title="Show Detail" color={maincolor} />
-                            <Button style={styles.button1} onPress={copyToClipboard} title="Copy Serial Number" color={maincolor} /> */}
                             </View>
                         </View>
                     </View>
@@ -94,11 +84,14 @@ const SearchById = () => {
                         }}
                     >
                         <View style={styles.marginTop}>
-                            {data
-                                ?
-                                <UserIdDetail data={data} />
+                            {loading ?
+                                <ActivityIndicator size="large" color="green" />
                                 :
-                                <Text style={styles.searchText}>Search Applicant Request By Id</Text>
+                                data
+                                    ?
+                                    <UserIdDetail data={data} />
+                                    :
+                                    <Text style={styles.searchText}>Search Applicant Request By Id</Text>
                             }
                         </View>
                     </PresenceTransition>

@@ -7,7 +7,6 @@ const ShowAlert = (title, message) => {
         [
             {
                 text: "Cancel",
-                // onPress: () => Alert.alert("Cancel Pressed"),
                 style: "cancel",
             },
         ],

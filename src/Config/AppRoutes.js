@@ -3,8 +3,7 @@ import AuthContext from '../AuthContext/AuthContext.js';
 import AuthHandler from '../AuthHandler/AuthHandler.js';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import ACTION from './Action'
-import ShowAlert from '../Components/ShowAlert.js';
+import ACTION from './Action';
 
 const AppRoutes = () => {
     // //* Screen Toggle 

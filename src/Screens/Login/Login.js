@@ -1,17 +1,12 @@
 import React, { useState, useContext } from 'react';
 import {
-    Container,
     Text,
-    Heading,
     Center,
     Input,
     Stack,
-    CheckIcon,
-    Button,
 } from "native-base";
-import { StyleSheet, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import { maincolor, bgMaincolor } from '../../assests/styles/style'
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
@@ -134,7 +129,6 @@ export const Example = () => {
             {/* <Text>Dont Have An Account</Text> */}
             <TouchableOpacity onPress={navigateScreen}>
                 <Text style={styles.createAcc}>Create Account</Text>
-                
             </TouchableOpacity>
         </Stack>
     )

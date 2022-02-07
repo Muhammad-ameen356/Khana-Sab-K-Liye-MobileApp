@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import React from 'react';
 import AppRoutes from './src/Config/AppRoutes';
-import { NativeBaseProvider, Box } from 'native-base';
-import QRCode from 'react-native-qrcode-svg';
+import { NativeBaseProvider } from 'native-base';
 
 
 function App() {
   return (
     <NativeBaseProvider>
-          <AppRoutes />
+      <AppRoutes />
     </NativeBaseProvider>
   );
 }

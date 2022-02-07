@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
-import { Image, StyleSheet, View, Text, ImageBackground, Button } from 'react-native';
+import React, { useContext } from 'react'
+import { Image, StyleSheet, View, ImageBackground, Button } from 'react-native';
 import AuthContext from '../AuthContext/AuthContext'
 
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from '../Screens/Login/Login'
@@ -30,7 +30,6 @@ const Stack = createNativeStackNavigator();
 function splashScreen1({ navigation }) {
     const authCtx = useContext(AuthContext);
     setTimeout(() => {
-        // authCtx.isLoggedIn && authCtx.checkDoc ? navigation.replace('Status') : (authCtx.isLoggedIn ? navigation.replace('MapsandDistance') : navigation.replace('Login'))
         authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? navigation.replace('QRPage') : (authCtx.isLoggedIn && authCtx.checkDoc ? navigation.replace('Status') : authCtx.isLoggedIn ? navigation.replace('MapsandDistance') : navigation.replace('Login'))
     }, 2000);
     return (
@@ -142,7 +141,6 @@ const IfDocFind = () => {
                         textTransform: "uppercase"
                     },
                 }} />
-                {/* <Text>Logout</Text> */}
             </Stack.Navigator>
         </NavigationContainer>
     )
@@ -250,8 +248,6 @@ const IfManager = () => {
 
 
 const IfNoInternet = () => {
-    const authCtx = useContext(AuthContext);
-
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -266,13 +262,6 @@ const IfNoInternet = () => {
                         fontSize: 22,
                         textTransform: "uppercase"
                     },
-                    // headerRight: () => (
-                    //     <Button
-                    //         onPress={authCtx.logout}
-                    //         title="Logout"
-                    //         color={maincolor}
-                    //     />
-                    // ),
                 }} />
             </Stack.Navigator>
         </NavigationContainer>
@@ -289,7 +278,7 @@ const AuthHandler = () => {
     {/* <Text>Type: {netInfo.type}</Text>
                 <Text>Is Connected? {netInfo.isConnected.toString()}</Text> */}
     // return authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)
-    return netInfo.isConnected ? (authCtx.isLoggedIn && authCtx.checkManager ? <IfManager /> : authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)) : <IfNoInternet />
+    return netInfo.isConnected && netInfo.isInternetReachable ? (authCtx.isLoggedIn && authCtx.checkManager ? <IfManager /> : authCtx.isLoggedIn && authCtx.checkDoc && authCtx.checkQR ? <IfDocAccepted /> : (authCtx.isLoggedIn && authCtx.checkDoc ? <IfDocFind /> : authCtx.isLoggedIn ? <IfLog /> : <IfNotLog />)) : <IfNoInternet />
 
 }
 

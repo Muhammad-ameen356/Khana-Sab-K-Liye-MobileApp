@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { Marker } from 'react-native-maps';
-import { maincolor, bgMaincolor } from '../../assests/styles/style';
+import { maincolor } from '../../assests/styles/style';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import allFoodBanks from '../../foodBanks';
 import { useNavigation } from '@react-navigation/native';
@@ -11,22 +11,41 @@ import { useNavigation } from '@react-navigation/native';
 
 const MapsandDistance = () => {
     const navigation = useNavigation();
-    const [text, onChangeText] = useState("Useless Text");
-    const [number, onChangeNumber] = useState(0);
-    const [latitude, setLatitude] = useState(24.9532929);
-    const [longitude, setLongitude] = useState(66.9990128);
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
     const [refresh, setRefresh] = useState(false);
     const [totalDistance, setTotaldistance] = useState([]);
     const [nearestbranchIndex, setNearestIndex] = useState(0)
+    const [rr, setRr] = useState(false)
 
-    useEffect(() => {
+    let latitudeVar = 0;
+    let longitudeVar = 0;
+
+    const getGeoLocation = () => {
         Geolocation.getCurrentPosition(info => {
             let lati = info.coords.latitude
+            let longi = info.coords.longitude
             setLatitude(lati)
-            setLongitude(info.coords.longitude)
-        });
-        console.log(latitude, longitude);
-    }, [refresh])
+            setLongitude(longi)
+            latitudeVar = lati;
+            longitudeVar = longi;
+            console.log(lati, info.coords.longitude, "from geo");
+            console.log(latitude, longitude, "FRom state");
+            console.log(latitudeVar, longitudeVar, "FRom var");
+
+            setRr(!rr)
+        },
+            error => console.log(error),
+            {
+                enableHighAccuracy: false,
+                timeout: 2000,
+                maximumAge: 3600000
+            });
+    }
+
+    useEffect(() => {
+        getGeoLocation()
+    }, [latitude, longitude])
 
     // //* This is for enable popup for Enable location
 
@@ -35,8 +54,9 @@ const MapsandDistance = () => {
             interval: 10000,
             fastInterval: 5000,
         }).then((data) => {
-            console.log(data, "data");
+            console.log(data, "data 123");
             setRefresh(true)
+            getGeoLocation()
         }).catch((err) => {
             console.log(err, "error");
             setRefresh(false)
@@ -45,8 +65,10 @@ const MapsandDistance = () => {
 
     useEffect(() => {
         locationPopUp()
+        getGeoLocation()
+        console.log(latitude, longitude, "FRom state");
+        setRr(!rr)
     }, [refresh]);
-
 
 
     // https://www.geeksforgeeks.org/program-distance-two-points-earth/
@@ -126,10 +148,10 @@ const MapsandDistance = () => {
                     <MapView
                         style={styles.map}
                         initialRegion={{
-                            latitude: latitude,
-                            longitude: longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
+                            latitude: longitude >0 ? latitude : 24.8607,
+                            longitude: longitude >0 ? longitude : 67.0011,
+                            latitudeDelta: 0.0322,
+                            longitudeDelta: 0.0211,
                         }}>
                         <Marker
                             coordinate={{ latitude: latitude, longitude: longitude }}

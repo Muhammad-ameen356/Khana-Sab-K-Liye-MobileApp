@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Button, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react'
+import { View, Text, StyleSheet, TextInput, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { useToast } from 'native-base'
 import QRCode from 'react-native-qrcode-svg';
-import { bgMaincolor, maincolor } from '../../assests/styles/style';
+import { maincolor } from '../../assests/styles/style';
 import AuthContext from '../../AuthContext/AuthContext';
 import Clipboard from '@react-native-community/clipboard';
 import { useNavigation } from '@react-navigation/native';
@@ -26,14 +26,9 @@ const QRPage = () => {
     };
 
     const navigationScreen = () => {
-        // navigation.navigate('showdetails', {
-        //     nearestIndex: indexFind,
-        //     otherParam: {userLat: latitude, userLon: longitude},
-        // });
         navigation.navigate('showdetails');
     }
 
-    let logoFromFile = require('../../assests/images/logo.png');
     return (
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView>
@@ -43,8 +38,6 @@ const QRPage = () => {
                             value={authCtx.userID}
                             size={180}
                             logoSize={50}
-                        // logo={logoFromFile}
-                        // logoBackgroundColor={bgMaincolor}
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -63,8 +56,6 @@ const QRPage = () => {
                         <TouchableOpacity style={styles.button2} onPress={navigationScreen}>
                             <Text style={styles.buttonText}>Show Details</Text>
                         </TouchableOpacity>
-                        {/* <Button style={styles.button1} onPress={copyToClipboard} title="Show Detail" color={maincolor} />
-                            <Button style={styles.button1} onPress={copyToClipboard} title="Copy Serial Number" color={maincolor} /> */}
                     </View>
                 </View>
             </ScrollView>

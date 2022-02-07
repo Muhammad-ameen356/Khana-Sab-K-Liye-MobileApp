@@ -11,10 +11,8 @@ import {
     Stack,
     PresenceTransition
 } from "native-base"
-import { maincolor } from "../../assests/styles/style";
 
 function UserIdDetail({ data }) {
-
     return (
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView
@@ -63,6 +61,8 @@ function UserIdDetail({ data }) {
                                             uri: `${data.personImg}`,
                                         }}
                                         alt="image"
+                                        resizeMode={"contain"}
+
                                     />
                                 </AspectRatio>
                                 <Center
@@ -116,25 +116,14 @@ function UserIdDetail({ data }) {
                                     <Text fontWeight="700"> Date of Expiry: </Text> <Text>Dummy number</Text>
                                 </Text>
                                 <Text>
-                                    <Text fontWeight="700"> Status: </Text> <Text>{data.active_status}</Text>
+                                    <Text fontWeight="700"> Branch Name: </Text> <Text>{data.nearestBranch}</Text>
                                 </Text>
-                                {/* <Heading size="md" ml="-1">
-                                <Text>Food Bank Branch Name</Text>
-                            </Heading> */}
-                                <HStack alignItems="center" space={4} justifyContent="space-between">
-                                    <HStack alignItems="center">
-                                        <Text
-                                            color="coolGray.600"
-                                            _dark={{
-                                                color: "warmGray.200",
-                                            }}
-                                            fontWeight="400"
-                                            fontSize="sm"
-                                        >
-                                            {data.nearestBranch} Branch
-                                        </Text>
-                                    </HStack>
-                                </HStack>
+                                <Text>
+                                    <Text fontWeight="700"> Status: </Text> <Text textTransform="uppercase">{data.active_status}</Text>
+                                </Text>
+                                <Text>
+                                    <Text fontWeight="700"> ID: </Text> <Text>{data.user_uid}</Text>
+                                </Text>
                             </Stack>
                         </Box>
                     </Center>
@@ -154,6 +143,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: "row",
+        marginBottom: 20,
     }
 })
 

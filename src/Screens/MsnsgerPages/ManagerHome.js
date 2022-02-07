@@ -7,13 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 const ManagerHome = () => {
     const navigation = useNavigation();
 
-    const authCtx = useContext(AuthContext);
-    const [searchVal, setSearchVal] = useState('');
-
-    const navigationScreen = () => {
-        
-    }
-
     return (
         <SafeAreaView style={styles.maincontainer}>
             <ScrollView>
